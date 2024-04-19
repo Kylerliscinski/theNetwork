@@ -3,6 +3,7 @@ import { computed, onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
+import PostCard from "../components/PostCard.vue";
 
 
 const posts = computed(() => AppState.posts)
@@ -25,7 +26,7 @@ onMounted(() => {
 <template>
  The Network!
 <section class="container">
-  <div v-for="post in posts" :key="post.id" class="card">
+  <div v-for="post in posts" :key="post.id" class="col-6">
     <PostCard />
   </div>
 </section>
