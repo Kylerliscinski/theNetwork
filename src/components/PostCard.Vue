@@ -1,5 +1,6 @@
 <script setup>
 import { Post } from "../models/Post.js";
+import { RouterLink } from "vue-router";
 
 defineProps({post: {type: Post, required: true}})
 
@@ -9,12 +10,14 @@ defineProps({post: {type: Post, required: true}})
 <template>
   <div class="card">
     <div class="d-flex align-items-center m-1">
+      <!-- <RouterLink :to="{name: 'Profile', params: {profileId: post.creatorId}}"> -->
         <img class="profile" src="https://images.unsplash.com/photo-1590341328520-63256eb32bc3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
         <div class="row text-start align-items-center px-3 mt-3">
-          <h4>Author</h4>
-          <p>Time Posted</p>
-        </div>
-        <button class="float-end">Edit</button>
+        <h4>{{ post }}</h4>
+        <p>Time Posted</p>
+      </div>
+      <!-- </RouterLink> -->
+      <button class="float-end">Edit</button>
     </div>
     <div class="card-body">
       <p>A bunch of text</p>

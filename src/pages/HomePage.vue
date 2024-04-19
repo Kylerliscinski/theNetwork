@@ -5,7 +5,6 @@ import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
 import PostCard from "../components/PostCard.vue";
 
-
 const posts = computed(() => AppState.posts)
 
 async function getPosts(){
@@ -16,7 +15,6 @@ async function getPosts(){
     console.error(error)
   }
 }
-
 onMounted(() => {
   getPosts()
 })
@@ -24,10 +22,9 @@ onMounted(() => {
 </script>
 
 <template>
- The Network!
 <section class="container">
   <div v-for="post in posts" :key="post.id" class="col-6">
-    <PostCard />
+    <PostCard :post="post"/>
   </div>
 </section>
 </template>

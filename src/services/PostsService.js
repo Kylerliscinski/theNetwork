@@ -6,10 +6,11 @@ import { api } from "./AxiosService.js"
 
 class PostsService {
   async getPosts() {
-    const response = await api.get('api/projects')
+    const response = await api.get('api/posts')
     console.log('🅿️', response.data);
-    const posts = response.data.map(posts => new Post(posts))
+    const posts = response.data.posts.map(posts => new Post(posts))
     AppState.posts = posts
+    console.log(posts);
   }
 }
 

@@ -1,3 +1,4 @@
+import { Account } from "./Account.js"
 
 
 export class Post {
@@ -11,6 +12,6 @@ export class Post {
     this.updatedAt = new Date(data.updatedAt)
     this.title = data.title
     this.coverImg = data.coverImg
-    this.creator = data.creator
+    this.creator = new Account(data.creator)
   }
 }
