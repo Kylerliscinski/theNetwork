@@ -1,6 +1,5 @@
 <script setup>
-import 
-
+import { Post } from "../models/Post.js";
 
 defineProps(post: Post)
 
@@ -8,7 +7,9 @@ defineProps(post: Post)
 
 
 <template>
-
+<div class="col-6 card-header d-flex">
+      <img :src="Post" alt="">
+    </div>
 </template>
 
 
