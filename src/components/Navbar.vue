@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import Searchbar from "./Searchbar.vue";
 
 const theme = ref(loadState('theme') || 'light')
 
@@ -28,6 +29,9 @@ function toggleTheme() {
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- <div class="d-flex">
+      <Searchbar/>
+    </div> -->
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
