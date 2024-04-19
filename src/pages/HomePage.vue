@@ -5,7 +5,7 @@ import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
 import PostCard from "../components/PostCard.vue";
 import Sidebar from "../components/Sidebar.vue";
-import Searchbar from "../components/Searchbar.vue";
+import Searchbar from "../components/SearchBar.vue";
 
 const posts = computed(() => AppState.posts)
 

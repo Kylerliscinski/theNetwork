@@ -2,7 +2,6 @@
 import { onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
-import Searchbar from "./Searchbar.vue";
 
 const theme = ref(loadState('theme') || 'light')
 

@@ -9,12 +9,13 @@ class ProfilesService {
     AppState.activeProfile = null
     const response = await api.get(`api/profiles/${profileId}`)
     console.log('🙍', response.data);
+    AppState.activeProfile = response.data
   }
 
   async searchProfiles(searchQuery) {
     const response = await api.get(`api/profiles?query=${searchQuery}`)
     console.log('Found profile', response.data);
-    const profile = response.data.posts.map(profileData => new Profile(profileData))
+    const profile = response.data.map(profileData => new Profile(profileData))
     AppState.searchTerm = searchQuery
     AppState.posts = profile
     AppState.currentPage = response.data.page

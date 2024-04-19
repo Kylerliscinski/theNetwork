@@ -5,6 +5,7 @@ import Pop from "../utils/Pop.js";
 import { profilesService } from "../services/ProfilesService.js";
 import { useRoute } from "vue-router";
 import { postsService } from "../services/PostsService.js";
+import PostCard from "../components/PostCard.vue";
 
 
 const profile = computed(() => AppState.activeProfile)
@@ -41,23 +42,27 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <h1>Hello</h1>
     <section v-if="profile" class="row">
       <img class="cover-img" :src="profile.coverImg" alt="">
       <div class="col-12 text-center">
         <img :src="profile.picture" alt="" class="profile-img">
         <h3>{{ profile.name }}</h3>
-        <h4>{{ profile.graduated }}</h4>
-        <h4>{{ profile.class }}</h4>
+        <p>Graduated? {{ profile.graduated }}</p>
+        <p>Class: {{ profile.class }}</p>
       </div>
-      <div class="col-12">
-        <p class="mt-3">{{ profile.bio }}</p>
+      <div class="col-12 text-center">
+        <p class="mt-3">Bio: {{ profile.bio }}</p>
       </div>
-      <div class="col-6">
+      <div class="col-12 text-center">
         <a v-if="profile.linkedin" :href="profile.linkedin" target="_blank"><i class="mdi mdi-linkedin fs-5"></i></a>
         <a v-if="profile.github" :href="profile.github" target="_blank"><i class="mdi mdi-github fs-5"></i></a>
       </div>
     </section>
+
+    <!-- <section class="row justify-content-center">
+      <div v-for="post in posts" :key="post.id" class="col-10 mb-3"></div>
+      <PostCard :post="post" />
+    </section> -->
   </div>
 </template>
 
