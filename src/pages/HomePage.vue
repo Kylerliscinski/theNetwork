@@ -6,14 +6,27 @@ import { postsService } from "../services/PostsService.js";
 import PostCard from "../components/PostCard.vue";
 import Sidebar from "../components/Sidebar.vue";
 import Searchbar from "../components/SearchBar.vue";
+import { adsService } from "../services/AdsService.js";
+import AdCard from "../components/AdCard.vue";
 
 const posts = computed(() => AppState.posts)
+
+const ads = computed(() => AppState.ads)
 
 async function getPosts(){
   try {
     await postsService.getPosts()
   } catch (error) {
     Pop.toast("Could not get Posts", 'error')
+    console.error(error)
+  }
+}
+
+async function getAds(){
+  try {
+    await adsService.getAds()
+  } catch (error) {
+    Pop.toast("Could not get Ads", 'error')
     console.error(error)
   }
 }
@@ -39,6 +52,7 @@ async function changeSearchPage(pageNumber){
 
 onMounted(() => {
   getPosts()
+  getAds()
 })
 
 </script>
@@ -80,10 +94,8 @@ onMounted(() => {
     </div>
 
     <div class="col-3">
-      <div class="card">
-        <div class="card-header">
-          <h4>Hello</h4>
-        </div>
+      <div v-for="ad in ads" :key="ad.id" class="col-12">
+        <AdCard :ad="ad"/>
       </div>
     </div>
 

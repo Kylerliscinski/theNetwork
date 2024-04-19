@@ -41,7 +41,7 @@ async function clearSearch(){
     </div>
   </form>
   <div v-if="searchTerm" class="mt-1">
-    <div @click="clearSearch" role="button" class="btn btn-outline-success" title="clear search results">{{ searchTerm }} <i class="mdi mdi-close"></i></div>
+    <div @click="clearSearch()" role="button" class="btn btn-outline-success" title="clear search results">{{ searchTerm }} <i class="mdi mdi-close"></i></div>
   </div>
 </template>
 

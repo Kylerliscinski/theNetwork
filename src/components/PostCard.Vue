@@ -16,15 +16,17 @@ defineProps({post: {type: Post, required: true}})
       <div class="row text-start align-items-center px-3 mt-3">
         <h4>{{ post.creator.name }}</h4>
         <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
+        <img :src="post.coverImg" alt="">
       </div>
       <button class="float-end">Edit</button>
     </div>
     <div class="card-body">
       <p>{{ post.body }}</p>
-      <img class="img-fluid" :src="post.coverImg" alt="">
+      <p>{{ post.title }}</p>
+      <img class="img-fluid" :src="post.imgUrl" alt="">
     </div>
     <div>
-      <i class="mdi mdi-heart float-end m-1 fs-5 selectable"></i>
+      <i class="mdi mdi-heart float-end m-1 fs-5 selectable">{{ post.likes.length }}</i>
     </div>
   </div>
 </template>
