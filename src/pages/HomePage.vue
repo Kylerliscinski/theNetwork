@@ -16,13 +16,19 @@ async function getPosts(){
   }
 }
 
-onMounted(() => getPosts())
+onMounted(() => {
+  getPosts()
+})
 
 </script>
 
 <template>
  The Network!
- {{ posts }}
+<section class="container">
+  <div v-for="post in posts" :key="post.id" class="card">
+    <PostCard />
+  </div>
+</section>
 </template>
 
 <style scoped lang="scss">
