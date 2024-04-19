@@ -21,18 +21,13 @@ class PostsService {
     AppState.currentPage = response.data.page
     AppState.totalPages = response.data.totalPages
   }
-  async searchPosts(searchQuery) {
-    const response = await api.get(`search/posts?query=${searchQuery}`)
-    console.log('Found posts', response.data);
-    const posts = response.data.posts.map(postData => new Post(postData))
-    AppState.searchTerm = searchQuery
-    AppState.posts = posts
-    AppState.currentPage = response.data.page
-    AppState.totalPages = response.data.totalPages
-  }
-  async clearSearch() {
-    AppState.searchTerm = ''
-    await this.getPosts()
+
+  async getProfilePosts(profileId) {
+    AppState.profilePosts = []
+    const response = await api.get(`api/posts?creatorId=${profileId}`)
+    console.log('posts by profile', response.data);
+    const posts = response.data.posts.map(posts => new Post(posts))
+    AppState.profilePosts = posts
   }
 }
 
