@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
@@ -10,8 +10,13 @@ import { adsService } from "../services/AdsService.js";
 import AdCard from "../components/AdCard.vue";
 
 const posts = computed(() => AppState.posts)
-
+const account = computed(() => AppState.account)
 const ads = computed(() => AppState.ads)
+
+const editableData = ref({
+  body: '',
+  imgUrl: ''
+})
 
 async function getPosts(){
   try {
@@ -50,6 +55,20 @@ async function changeSearchPage(pageNumber){
   }
 }
 
+async function createPost(){
+  try {
+    await postsService.createPost()
+
+    editableData.value = {
+      body: '',
+      imgUrl: ''
+    }
+  } catch (error) {
+    Pop.toast("Could not create house", 'error')
+    console.error(error)
+  }
+}
+
 onMounted(() => {
   getPosts()
   getAds()
@@ -69,6 +88,15 @@ onMounted(() => {
       <div class="mt-2">
         <Searchbar/>
       </div>
+
+      <div class="card my-3">
+        <form v-if="account" @submit.prevent="createPost()">
+          <textarea v-model="editableData.body" placeholder="Share whats happening..." class="form-control" name="form" id="" cols="30" rows="5"></textarea>
+          <input v-model="editableData.imgUrl" class="form-control" placeholder="Attach a photo here..." type="url">
+          <button class="btn btn-success text-center w-25 float-end">Post</button>
+        </form>
+      </div>
+
       <div v-for="post in posts" :key="post.id" class="col-12 my-2">
         <PostCard :post="post"/>
       </div>

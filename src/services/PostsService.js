@@ -51,6 +51,13 @@ class PostsService {
     AppState.searchTerm = ''
     await this.getPosts()
   }
+
+  async createPost(postData) {
+    const response = await api.post('api/posts')
+    console.log("Created Post", response.data);
+
+
+  }
 }
 
 export const postsService = new PostsService()
