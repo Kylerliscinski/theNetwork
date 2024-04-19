@@ -3,26 +3,27 @@ import { computed, ref } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { profilesService } from "../services/ProfilesService.js";
+import { postsService } from "../services/PostsService.js";
 
 
 const searchQuery = ref('')
 
 const searchTerm = computed(() => AppState.searchTerm)
 
-async function searchProfiles(){
+async function searchPosts(){
   try {
     console.log("Searching", searchQuery.value);
-    await profilesService.searchProfiles(searchQuery.value)
+    await postsService.searchPosts(searchQuery.value)
     searchQuery.value = ''
   } catch (error) {
-    Pop.toast("Could not find profile", 'error')
+    Pop.toast("Could not find post", 'error')
     console.error(error)
   }
 }
 
 async function clearSearch(){
   try {
-    await profilesService.clearSearch()
+    await postsService.clearSearch()
   } catch (error) {
     Pop.toast("Could not clear search", 'error')
     console.error(error)
@@ -33,7 +34,7 @@ async function clearSearch(){
 
 
 <template>
-  <form @submit.prevent="searchProfiles()">
+  <form @submit.prevent="searchPosts()">
     <div class="input-group">
       <input v-model="searchQuery" type="text" class="form-control" placeholder="Search for profiles..." id="search-input">
       <button class="btn btn-success w-25">search <i class="mdi mdi-magnify"></i></button>
