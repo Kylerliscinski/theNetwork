@@ -40,6 +40,7 @@ class PostsService {
   }
 
   async searchPosts(searchQuery) {
+    AppState.posts = []
     const response = await api.get(`api/posts?query=${searchQuery}`)
     // logger.log('Found post', response.data);
     const posts = response.data.posts.map(postData => new Post(postData))
@@ -67,6 +68,12 @@ class PostsService {
     const postIndex = posts.findIndex(post => post.id == postId)
     if (postIndex == -1) throw new Error("You could not find the index")
     posts.splice(postIndex, 1)
+  }
+
+  async likePost(postId) {
+    const response = await api.post(`api/posts/${postId}/like`)
+    logger.log("liked post", response.data)
+    await this.getPosts()
   }
 }
 

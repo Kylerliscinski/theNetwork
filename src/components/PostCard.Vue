@@ -23,6 +23,15 @@ async function destroyPost(postId){
   }
 }
 
+async function likePost(postId){
+    try {
+      await postsService.likePost(postId)
+    } catch (error) {
+      Pop.error("Could not like post", 'error')
+      logger.error(error)
+    }
+  }
+
 </script>
 
 
@@ -52,7 +61,7 @@ async function destroyPost(postId){
       <img class="img-fluid" :src="post.imgUrl" alt="">
     </div>
     <div>
-      <i class="mdi mdi-heart-outline float-end m-1 fs-5 selectable"> {{ post.likes.length }}</i>
+      <i @click="likePost(post.id)" class="mdi mdi-heart-outline float-end m-1 fs-5 selectable"> {{ post.likes.length }}</i>
     </div>
   </div>
 </template>

@@ -117,7 +117,7 @@ onMounted(() => {
         <div class="col-4">
           <button :disabled="AppState.currentPage == 1" class="btn btn-info w-100" @click="changeSearchPage(AppState.currentPage - 1)" >Previous Page</button>
         </div>
-        <div class="col-4 text-center">Page{{ AppState.currentPage }} of {{ AppState.totalPages }}</div>
+        <div class="col-4 text-center">Page {{ AppState.currentPage }} of {{ AppState.totalPages }}</div>
         <div class="col-4">
           <button :disabled="AppState.currentPage == AppState.totalPages" class="btn btn-info w-100" @click="changeSearchPage(AppState.currentPage + 1)">Next Page</button>
         </div>
