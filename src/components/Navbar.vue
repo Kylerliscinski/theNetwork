@@ -33,12 +33,6 @@ function toggleTheme() {
       <ul class="navbar-nav me-auto">
       </ul>
       <!-- LOGIN COMPONENT HERE -->
-      <div>
-        <button class="btn text-light" @click="toggleTheme"
-          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-          <i class="mdi" :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i>
-        </button>
-      </div>
       <Login />
     </div>
   </nav>

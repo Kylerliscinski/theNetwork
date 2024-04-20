@@ -60,9 +60,8 @@ onMounted(() => {
     </section>
 
     <section class="row justify-content-center">
-      <div v-for="post in posts" :key="post.id" class="col-10 mb-3">
+      <div v-for="post in posts" :key="post.id" class="col-7 mb-3">
         <PostCard :post="post" />
-    
       </div>
     </section>
   </div>

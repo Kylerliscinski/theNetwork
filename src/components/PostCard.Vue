@@ -36,30 +36,43 @@ async function likePost(postId){
 
 
 <template>
-  <div class="card">
-    <div class="d-flex align-items-center m-1">
-      <RouterLink :to="{name: 'Profile', params: {profileId: post.creatorId}}">
-        <img class="profile" :src="post.creator.picture" alt="">
-      </RouterLink>
-      <div class="row text-start align-items-center px-3 mt-3">
-        <h4>{{ post.creator.name }}</h4>
-        <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
-        <img :src="post.coverImg" alt="">
-      </div>
-      <div class="dropdown open">
-        <button v-if="post.creatorId == account?.id" class="btn btn-outline-secondary dropdown-toggle me-1" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Options
-        </button>
-        <div class="dropdown-menu" aria-labelledby="triggerId">
-          <button @click="destroyPost(post.id)" v-if="account" class="dropdown-item text-danger float-end">Delete</button>
+  <div class="card shadow">
+    <div class="container">
+      <div class="row">
+        <div class="col-1 mt-2">
+          <RouterLink :to="{name: 'Profile', params: {profileId: post.creatorId}}">
+            <img class="profile" :src="post.creator.picture" alt="">
+          </RouterLink>
+        </div>
+        <div class="col-9">
+          <div class="row text-start align-items-center px-3 mt-2">
+            <h4>{{ post.creator.name }}</h4>
+            <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
+            <img :src="post.coverImg" alt="">
+          </div>
+        </div>
+        <div class="col-1 mt-1">
+          <div class="dropdown open">
+            <button v-if="post.creatorId == account?.id" class="btn btn-outline-secondary dropdown-toggle me-1" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Options
+            </button>
+            <div class="dropdown-menu" aria-labelledby="triggerId">
+              <button @click="destroyPost(post.id)" v-if="account" class="dropdown-item text-danger float-end">Delete</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <p>{{ post.body }}</p>
+          <p>{{ post.title }}</p>
+        </div>
+        <div class="col-12 text-center">
+          <div class="card-body">
+            <img class="img-fluid" :src="post.imgUrl" alt="">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card-body">
-      <p>{{ post.body }}</p>
-      <p>{{ post.title }}</p>
-      <img class="img-fluid" :src="post.imgUrl" alt="">
-    </div>
+
+      </div>
     <div>
       <i @click="likePost(post.id)" class="mdi mdi-heart-outline float-end m-1 fs-5 selectable"> {{ post.likes.length }}</i>
     </div>
