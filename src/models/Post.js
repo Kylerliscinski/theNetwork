@@ -14,5 +14,6 @@ export class Post {
     this.coverImg = data.coverImg
     this.creator = new Account(data.creator)
     this.likes = data.likes
+    this.liked = false
   }
 }
