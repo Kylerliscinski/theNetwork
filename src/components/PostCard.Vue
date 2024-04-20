@@ -3,11 +3,25 @@ import { Post } from "../models/Post.js";
 import { RouterLink } from "vue-router";
 import { computed } from "vue";
 import { AppState } from "../AppState.js";
-
+import Pop from "../utils/Pop.js";
+import { logger } from "../utils/Logger.js";
+import { postsService } from "../services/PostsService.js";
 
 defineProps({post: {type: Post, required: true}})
+
 const account = computed(() => AppState.account)
 
+async function destroyPost(postId){
+  try {
+    const wantsToDestroy = await Pop.confirm("Are you sure you want to delete this post?")
+    if(!wantsToDestroy) return
+    logger.log("destroying post", postId)
+    await postsService.destroyPost(postId)
+  } catch (error) {
+    Pop.toast("Could not delete post", 'error')
+    logger.error(error)
+  }
+}
 
 </script>
 
@@ -23,7 +37,14 @@ const account = computed(() => AppState.account)
         <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
         <img :src="post.coverImg" alt="">
       </div>
-      <button v-if="account" class="float-end">Edit</button>
+      <div class="dropdown open">
+        <button v-if="post.creatorId == account?.id" class="btn btn-outline-secondary dropdown-toggle me-1" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Options
+        </button>
+        <div class="dropdown-menu" aria-labelledby="triggerId">
+          <button @click="destroyPost(post.id)" v-if="account" class="dropdown-item text-danger float-end">Delete</button>
+        </div>
+      </div>
     </div>
     <div class="card-body">
       <p>{{ post.body }}</p>
@@ -31,7 +52,7 @@ const account = computed(() => AppState.account)
       <img class="img-fluid" :src="post.imgUrl" alt="">
     </div>
     <div>
-      <i class="mdi mdi-heart float-end m-1 fs-5 selectable">{{ post.likes.length }}</i>
+      <i class="mdi mdi-heart-outline float-end m-1 fs-5 selectable"> {{ post.likes.length }}</i>
     </div>
   </div>
 </template>
@@ -45,4 +66,6 @@ const account = computed(() => AppState.account)
     object-fit: cover;
     object-position: center
   }
-</style>import { Account } from "../models/Account.js";
+</style>
+
+

@@ -1,8 +1,11 @@
 <script setup>
+import { computed } from "vue";
 import { Post } from "../models/Post.js";
+import { AppState } from "../AppState.js";
 
+const posts = computed(() => AppState.posts)
+const account = computed(() => AppState.account)
 
-defineProps({post: {type: Post, required: true}})
 
 </script>
 
@@ -10,9 +13,9 @@ defineProps({post: {type: Post, required: true}})
 <template>
   <div class="card">
     <div class="card-header">
-      <h4>Sidebar</h4>
-      <!-- <img class="profile" :src="post.creator.picture" alt=""> -->
-      <!-- <h4>Hello! {{ post.creator.name }}</h4> -->
+      <h5 class="text-center my-3">Hello! {{ account.name }}</h5>
+      <img class="profile" :src="account.picture" alt="">
+      <h5>{{ account.linkedin }}</h5>
     </div>
   </div>
 </template>
@@ -20,7 +23,7 @@ defineProps({post: {type: Post, required: true}})
 
 <style lang="scss" scoped>
 .profile{
-    height: 55px;
+    height: 195px;
     aspect-ratio: 1/1;
     border-radius: 50em;
     object-fit: cover;
