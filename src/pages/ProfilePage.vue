@@ -6,6 +6,7 @@ import { profilesService } from "../services/ProfilesService.js";
 import { useRoute } from "vue-router";
 import { postsService } from "../services/PostsService.js";
 import PostCard from "../components/PostCard.vue";
+import { logger } from "../utils/Logger.js";
 
 
 const profile = computed(() => AppState.activeProfile)

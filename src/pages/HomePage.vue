@@ -54,6 +54,7 @@ async function changeSearchPage(pageNumber){
     Pop.toast("Could not change the search page", 'error')
     logger.error(error)
   }
+  scroll(0,0)
 }
 
 async function createPost(){
@@ -103,7 +104,7 @@ onMounted(() => {
       <div v-for="post in posts" :key="post.id" class="col-12 my-2">
         <PostCard :post="post"/>
       </div>
-      
+
       <section v-if="!AppState.searchTerm" class="row my-3">
         <div class="col-4">
           <button :disabled="AppState.currentPage == 1" class="btn btn-success w-100" @click="changePage(AppState.currentPage - 1)" >Previous Page</button>
