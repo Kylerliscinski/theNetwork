@@ -37,15 +37,15 @@ async function likePost(postId){
 
 <template>
   <div class="card shadow">
-    <div class="container">
-      <div class="row">
+    <div class="container-fluid">
+      <div class="row p-1">
         <div class="col-1 mt-2">
           <RouterLink :to="{name: 'Profile', params: {profileId: post.creatorId}}">
             <img class="profile" :src="post.creator.picture" alt="">
           </RouterLink>
         </div>
-        <div class="col-9">
-          <div class="row text-start align-items-center px-3 mt-2">
+        <div class="col-8">
+          <div class="text-start align-items-center px-3 mt-2">
             <h4>{{ post.creator.name }}</h4>
             <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
             <img :src="post.coverImg" alt="">
@@ -53,22 +53,20 @@ async function likePost(postId){
         </div>
         <div class="col-1 mt-1">
           <div class="dropdown open">
-            <button v-if="post.creatorId == account?.id" class="btn btn-outline-secondary dropdown-toggle me-1" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button v-if="post.creatorId == account?.id" class="btn btn-outline-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Options
             </button>
-            <div class="dropdown-menu" aria-labelledby="triggerId">
-              <button @click="destroyPost(post.id)" v-if="account" class="dropdown-item text-danger float-end">Delete</button>
+            <div class="dropdown-menu p-0" aria-labelledby="triggerId">
+              <button @click="destroyPost(post.id)" v-if="account" class="dropdown-item text-danger">Delete <i class="mdi mdi-trash-can"></i></button>
             </div>
           </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 ms-2">
           <p>{{ post.body }}</p>
           <p>{{ post.title }}</p>
         </div>
         <div class="col-12 text-center">
-          <div class="card-body">
             <img class="img-fluid" :src="post.imgUrl" alt="">
-          </div>
         </div>
       </div>
 
