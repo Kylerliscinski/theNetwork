@@ -8,6 +8,7 @@ import Sidebar from "../components/Sidebar.vue";
 import Searchbar from "../components/SearchBar.vue";
 import { adsService } from "../services/AdsService.js";
 import AdCard from "../components/AdCard.vue";
+import { logger } from "../utils/Logger.js";
 
 const posts = computed(() => AppState.posts)
 const account = computed(() => AppState.account)
@@ -23,7 +24,7 @@ async function getPosts(){
     await postsService.getPosts()
   } catch (error) {
     Pop.toast("Could not get Posts", 'error')
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -32,7 +33,7 @@ async function getAds(){
     await adsService.getAds()
   } catch (error) {
     Pop.toast("Could not get Ads", 'error')
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -41,7 +42,7 @@ async function changePage(pageNumber){
     await postsService.getPosts2(`api/posts?page=${pageNumber}`)
   } catch (error) {
     Pop.toast("Could not change page", 'error')
-    console.error(error)
+    logger.error(error)
   }
   scroll(0,0)
 }
@@ -51,21 +52,22 @@ async function changeSearchPage(pageNumber){
     await postsService.getPosts2(`api/posts?page=${pageNumber}&query=${AppState.searchTerm}`)
   } catch (error) {
     Pop.toast("Could not change the search page", 'error')
-    console.error(error)
+    logger.error(error)
   }
 }
 
 async function createPost(){
   try {
-    await postsService.createPost()
+    // logger.log("creating a post", editableData)
+    await postsService.createPost(editableData.value)
 
     editableData.value = {
       body: '',
       imgUrl: ''
     }
   } catch (error) {
-    Pop.toast("Could not create house", 'error')
-    console.error(error)
+    Pop.toast("Could not create Post", 'error')
+    logger.error(error)
   }
 }
 
@@ -91,9 +93,10 @@ onMounted(() => {
 
       <div class="card my-3">
         <form v-if="account" @submit.prevent="createPost()">
+          <img class="profile m-1" :src="account.picture" alt="">
           <textarea v-model="editableData.body" placeholder="Share whats happening..." class="form-control" name="form" id="" cols="30" rows="5"></textarea>
           <input v-model="editableData.imgUrl" class="form-control" placeholder="Attach a photo here..." type="url">
-          <button class="btn btn-success text-center w-25 float-end">Post</button>
+          <button class="btn btn-success rounded-pill text-center w-25 float-end m-1">Post</button>
         </form>
       </div>
 
@@ -133,5 +136,11 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-
+.profile{
+    height: 55px;
+    aspect-ratio: 1/1;
+    border-radius: 50em;
+    object-fit: cover;
+    object-position: center
+  }
 </style>

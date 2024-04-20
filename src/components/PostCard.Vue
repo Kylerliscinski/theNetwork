@@ -1,8 +1,13 @@
 <script setup>
 import { Post } from "../models/Post.js";
 import { RouterLink } from "vue-router";
+import { computed } from "vue";
+import { AppState } from "../AppState.js";
+
 
 defineProps({post: {type: Post, required: true}})
+const account = computed(() => AppState.account)
+
 
 </script>
 
@@ -18,7 +23,7 @@ defineProps({post: {type: Post, required: true}})
         <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
         <img :src="post.coverImg" alt="">
       </div>
-      <button class="float-end">Edit</button>
+      <button v-if="account" class="float-end">Edit</button>
     </div>
     <div class="card-body">
       <p>{{ post.body }}</p>
@@ -40,4 +45,4 @@ defineProps({post: {type: Post, required: true}})
     object-fit: cover;
     object-position: center
   }
-</style>
+</style>import { Account } from "../models/Account.js";
