@@ -26,5 +26,9 @@ export const AppState = reactive({
 
   currentPage: 1,
 
-  totalPages: 32
+  totalPages: 32,
+
+  currentProfilePage: 1,
+
+  totalProfilePages: 3
 })

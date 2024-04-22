@@ -14,13 +14,13 @@ class ProfilesService {
     AppState.activeProfile = response.data
   }
 
-  async changePagePerCreator(creatorId, pageNumber) {
-    const response = await api.get(`api/posts?=${creatorId}&page=${pageNumber}`)
+  async changePagePerCreator(url) {
+    const response = await api.get(url)
     logger.log('page turn', response.data)
     const posts = response.data.posts.map(postData => new Post(postData))
     AppState.posts = posts
-    AppState.currentPage = response.data.page
-    AppState.totalPages = response.data.totalPages
+    AppState.currentProfilePage = response.data.page
+    AppState.totalProfilePages = response.data.totalPages
   }
 }
 

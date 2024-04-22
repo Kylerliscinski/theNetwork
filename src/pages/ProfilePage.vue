@@ -33,15 +33,17 @@ async function getProfilePosts(){
   }
 }
 
-async function changePagePerCreator(creatorId, pageNumber){
+async function changePagePerCreator(pageNumber){
   try {
-    await profilesService.changePagePerCreator(`api/posts?creatorId=${creatorId}&page=${pageNumber}`)
+    await profilesService.changePagePerCreator(`api/posts?creatorId=${route.params.profileId}&page=${pageNumber}`)
   } catch (error) {
     Pop.toast("Could not change page", 'error')
     logger.error(error)
   }
   scroll(0,0)
 }
+
+
 
 onMounted(() => {
   getProfile()
@@ -79,11 +81,11 @@ onMounted(() => {
 
     <section class="row my-3">
         <div class="col-4">
-          <button :disabled="AppState.currentPage == 1" class="btn btn-success w-100" @click="changePagePerCreator(AppState.currentPage - 1)" >Previous Page</button>
+          <button :disabled="AppState.currentProfilePage == 1" class="btn btn-success w-100" @click="changePagePerCreator(AppState.currentProfilePage - 1)" >Previous Page</button>
         </div>
-        <div class="col-4 text-center">Page {{ AppState.currentPage }} of {{ AppState.totalPages }}</div>
+        <div class="col-4 text-center">Page {{ AppState.currentProfilePage }} of {{ AppState.totalProfilePages }}</div>
         <div class="col-4">
-          <button :disabled="AppState.currentPage == AppState.totalPages" class="btn btn-success w-100" @click="changePagePerCreator(AppState.currentPage + 1)">Next Page</button>
+          <button :disabled="AppState.currentProfilePage == AppState.totalProfilePages" class="btn btn-success w-100" @click="changePagePerCreator(AppState.currentProfilePage + 1)">Next Page</button>
         </div>
       </section>
   </div>
