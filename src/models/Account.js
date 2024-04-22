@@ -9,5 +9,7 @@ export class Account {
     this.linkedin = data.linkedin
     this.bio = data.bio
     this.github = data.github
+    this.graduated = data.graduated
+    this.class = data.class
   }
 }

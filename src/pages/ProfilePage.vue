@@ -33,6 +33,16 @@ async function getProfilePosts(){
   }
 }
 
+async function changePagePerCreator(creatorId, pageNumber){
+  try {
+    await profilesService.changePagePerCreator(`api/posts?creatorId=${creatorId}&page=${pageNumber}`)
+  } catch (error) {
+    Pop.toast("Could not change page", 'error')
+    logger.error(error)
+  }
+  scroll(0,0)
+}
+
 onMounted(() => {
   getProfile()
   getProfilePosts()
@@ -42,13 +52,14 @@ onMounted(() => {
 
 
 <template>
-  <div class="container-fluid p-0">
+  <div class="container-fluid">
     <section v-if="profile" class="row">
       <img class="cover-img" :src="profile.coverImg" alt="">
       <div class="col-12 text-center">
         <img :src="profile.picture" alt="" class="profile-img">
         <h3>{{ profile.name }}</h3>
-        <p>Graduated? {{ profile.graduated }}</p>
+        <p v-if="profile.graduated == true">Graduated? Yes</p>
+        <p v-else>Graduated? No</p>
         <p>Class: {{ profile.class }}</p>
       </div>
       <div class="col-12 text-center">
@@ -65,6 +76,16 @@ onMounted(() => {
         <PostCard :post="post" />
       </div>
     </section>
+
+    <section class="row my-3">
+        <div class="col-4">
+          <button :disabled="AppState.currentPage == 1" class="btn btn-success w-100" @click="changePagePerCreator(AppState.currentPage - 1)" >Previous Page</button>
+        </div>
+        <div class="col-4 text-center">Page {{ AppState.currentPage }} of {{ AppState.totalPages }}</div>
+        <div class="col-4">
+          <button :disabled="AppState.currentPage == AppState.totalPages" class="btn btn-success w-100" @click="changePagePerCreator(AppState.currentPage + 1)">Next Page</button>
+        </div>
+      </section>
   </div>
 </template>
 

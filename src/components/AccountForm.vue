@@ -12,7 +12,9 @@ const accountData = ref({
   coverImg: '',
   bio: '',
   linkedin: '',
-  github: ''
+  github: '',
+  graduated: '',
+  class: ''
 })
 
 onMounted(() => {
@@ -57,7 +59,18 @@ async function saveAccount(){
       <label for="account-github-link">Github</label>
       <input v-model="accountData.github" class="form-control" type="url" id="account-github-link"  maxlength="500">
     </div>
-    <div class="mb-3 col-12 d-flex align-items-end justify-content-end">
+    <div class="mb-3 col-6">
+      <label for="account-graduated-link">Graduated?</label>
+      <select v-model="accountData.graduated" class="form-control form-select" aria-label="Default select example" id="account-graduated-link"  maxlength="500">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <div class="mb-3 col-6">
+      <label for="account-class-link">Class</label>
+      <input v-model="accountData.class" class="form-control" type="text" id="account-class-link"  maxlength="20">
+    </div>
+    <div class="mb-3 col-12 justify-content-end">
       <button class="btn btn-success w-25 float-end">Save <i class="mdi mdi-floppy"></i></button>
     </div>
   </form>
@@ -76,6 +89,12 @@ async function saveAccount(){
         </div>
         <div class="col-6">
           <a v-if="accountData.github" :href="accountData.github" target="_blank"><i class="mdi mdi-github fs-4"></i></a>
+        </div>
+        <div class="col-6">
+          <a v-if="accountData.graduated" target="_blank"><i class="fs-4"></i></a>
+        </div>
+        <div class="col-6">
+          <a v-if="accountData.class" target="_blank"><i class="fs-4"></i></a>
         </div>
       </section>
 </template>
