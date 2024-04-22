@@ -26,6 +26,9 @@ async function destroyPost(postId){
 async function likePost(postId){
     try {
       await postsService.likePost(postId)
+      //NOTE - This code below will always show post un-liked because the pose has been liked by other people
+      // if (postId == true) Pop.toast("Post liked!")
+      // else Pop.toast("Post un-liked!")
     } catch (error) {
       Pop.error("Could not like post", 'error')
       logger.error(error)
@@ -39,19 +42,19 @@ async function likePost(postId){
   <div class="card shadow">
     <div class="container-fluid">
       <div class="row p-1">
-        <div class="col-1 mt-2">
+        <div class="col-6 col-md-1 mt-2">
           <RouterLink :to="{name: 'Profile', params: {profileId: post.creatorId}}">
             <img class="profile" :src="post.creator.picture" alt="">
           </RouterLink>
         </div>
-        <div class="col-8">
+        <div class="col-6 col-md-8 ps-5">
           <div class="text-start align-items-center px-3 mt-2">
             <h4>{{ post.creator.name }}</h4>
             <p>Posted on: {{ post.createdAt.toLocaleDateString() }}</p>
             <img :src="post.coverImg" alt="">
           </div>
         </div>
-        <div class="col-1 mt-1">
+        <div class="col-12 col-md-1 mt-1">
           <div class="dropdown open">
             <button v-if="post.creatorId == account?.id" class="btn btn-outline-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Options
