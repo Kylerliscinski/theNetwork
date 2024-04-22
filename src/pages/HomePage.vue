@@ -83,11 +83,11 @@ onMounted(() => {
 <section class="container-fluid">
   <div class="row">
   
-    <div class="col-3">
+    <div class="col-12 col-md-3">
       <Sidebar/>
     </div>
 
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <div class="mt-2">
         <Searchbar/>
       </div>
@@ -126,7 +126,7 @@ onMounted(() => {
       </section>
     </div>
 
-    <div class="col-3">
+    <div class="col-12 col-md-3">
       <div v-for="ad in ads" :key="ad.id" class="col-12">
         <AdCard :ad="ad"/>
       </div>
