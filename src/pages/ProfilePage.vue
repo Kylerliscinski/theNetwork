@@ -20,7 +20,7 @@ async function getProfile(){
     await profilesService.getProfile(route.params.profileId)
   } catch (error) {
     Pop.toast("Could not get profiles", 'error')
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -29,7 +29,7 @@ async function getProfilePosts(){
     await postsService.getProfilePosts(route.params.profileId)
   } catch (error) {
     Pop.toast("Could not get Profile Posts", 'error')
-    console.error(error)
+    logger.error(error)
   }
 }
 
@@ -42,7 +42,7 @@ onMounted(() => {
 
 
 <template>
-  <div class="container">
+  <div class="container-fluid p-0">
     <section v-if="profile" class="row">
       <img class="cover-img" :src="profile.coverImg" alt="">
       <div class="col-12 text-center">
@@ -83,5 +83,6 @@ onMounted(() => {
   width: 100px;
   object-fit: cover;
   object-position: center;
+  border-radius: 5%;
 }
 </style>

@@ -59,7 +59,7 @@ async function changeSearchPage(pageNumber){
 
 async function createPost(){
   try {
-    // logger.log("creating a post", editableData)
+    logger.log("creating a post", editableData)
     await postsService.createPost(editableData.value)
 
     editableData.value = {

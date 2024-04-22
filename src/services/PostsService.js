@@ -1,17 +1,16 @@
 import { AppState } from "../AppState.js";
 import { Post } from "../models/Post.js";
 import { logger } from "../utils/Logger.js";
-import Pop from "../utils/Pop.js";
 import { api } from "./AxiosService.js"
 
 
 class PostsService {
   async getPosts() {
     const response = await api.get('api/posts')
-    // logger.log('🅿️', response.data);
+    logger.log('🅿️', response.data);
     const posts = response.data.posts.map(posts => new Post(posts))
     AppState.posts = posts
-    // logger.log(posts);
+    logger.log(posts);
   }
 
   async getPosts2(url) {
@@ -24,7 +23,7 @@ class PostsService {
 
   async changePage(pageNumber) {
     const response = await api.get(`api/posts?=${pageNumber}`)
-    // logger.log('page turn', response.data)
+    logger.log('page turn', response.data)
     const posts = response.data.posts.map(postData => new Post(postData))
     AppState.posts = posts
     AppState.currentPage = response.data.page
@@ -34,7 +33,7 @@ class PostsService {
   async getProfilePosts(profileId) {
     AppState.profilePosts = []
     const response = await api.get(`api/posts?creatorId=${profileId}`)
-    // logger.log('posts by profile', response.data);
+    logger.log('posts by profile', response.data);
     const posts = response.data.posts.map(posts => new Post(posts))
     AppState.profilePosts = posts
   }
@@ -42,7 +41,7 @@ class PostsService {
   async searchPosts(searchQuery) {
     AppState.posts = []
     const response = await api.get(`api/posts?query=${searchQuery}`)
-    // logger.log('Found post', response.data);
+    logger.log('Found post', response.data);
     const posts = response.data.posts.map(postData => new Post(postData))
     AppState.searchTerm = searchQuery
     AppState.posts = posts
@@ -56,7 +55,7 @@ class PostsService {
 
   async createPost(postData) {
     const response = await api.post('api/posts', postData)
-    // logger.log("Created Post", response.data);
+    logger.log("Created Post", response.data);
     const newPost = new Post(response.data)
     AppState.posts.unshift(newPost)
   }
