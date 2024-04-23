@@ -19,8 +19,8 @@ class ProfilesService {
     logger.log('page turn', response.data)
     const posts = response.data.posts.map(postData => new Post(postData))
     AppState.posts = posts
-    AppState.currentProfilePage = response.data.page
-    AppState.totalProfilePages = response.data.totalPages
+    AppState.currentPage = response.data.page
+    AppState.totalPages = response.data.totalPages
   }
 }
 
